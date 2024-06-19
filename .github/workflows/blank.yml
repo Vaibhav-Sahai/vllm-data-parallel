@@ -29,10 +29,16 @@ jobs:
 
       - name: Commit formatted code
         run: |
-          git config --global user.email "vaibhavsahai2003@example.com"
-          git config --global user.name "Vaibhav-Sahai"
+          git config --global user.email "you@example.com"
+          git config --global user.name "Your Name"
           git add .
           git commit -m "Format code with black" || echo "No changes to commit"
+
+      - name: Push changes
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
+          git remote set-url origin https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }}
           git push || echo "No changes to push"
 
       - name: Super-Linter
